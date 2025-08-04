@@ -8,6 +8,8 @@ public class InteractiveOrderProcessor {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+        // PART 1: Interactive Order Processing Logic
+
         // VARIABLES
         double discount;
         double quantityDiscount;
@@ -30,9 +32,6 @@ public class InteractiveOrderProcessor {
         System.out.print("Enter discount code (SAVE10, FREESHIP, or \"\" for none): ");
         String discountCode = sc.next();
 
-        // Closing Scanner:
-        sc.close();
-
         // Print Order Details:
         System.out.println("\n--- Order Details ---");
         System.out.printf("Unit Price: $%.2f%n", unitPrice);
@@ -48,7 +47,7 @@ public class InteractiveOrderProcessor {
         System.out.printf("Initial Subtotal: $%.2f%n", subtotal);
 
         // Tier-Based Discount:
-        if (customerTier.equalsIgnoreCase("Gold")){
+        if (customerTier.equalsIgnoreCase("Gold")) {
             discount = subtotal * 0.15;
             subtotal = subtotal - discount;
             System.out.printf("After Tier Discount (Gold - 15%%): $%.2f%n", subtotal);
@@ -63,14 +62,14 @@ public class InteractiveOrderProcessor {
         }
 
         // Quantity Discount:
-        if (quantity >= 5){
+        if (quantity >= 5) {
             quantityDiscount = subtotal * 0.05;
             subtotal = subtotal - quantityDiscount;
             System.out.printf("After Quantity Discount (5%% for >=5 items): $%.2f%n", subtotal);
         }
 
         // Promotional Code Application:
-        if (discountCode.equals("SAVE10") && subtotal > 75.00){
+        if (discountCode.equals("SAVE10") && subtotal > 75.00) {
             subtotal = subtotal - 10.00;
             System.out.printf("After Promotional Code (SAVE10 for >$75): $%.2f%n", subtotal);
         } else if (discountCode.equalsIgnoreCase("FREESHIP")) {
@@ -85,8 +84,8 @@ public class InteractiveOrderProcessor {
         if (surcharge == 0.00) System.out.print(" (No surcharge)\n");
 
         // Shipping Cost Calculation:
-        if (!discountCode.equalsIgnoreCase("FREESHIP")){
-            switch (shippingZone){
+        if (!discountCode.equalsIgnoreCase("FREESHIP")) {
+            switch (shippingZone) {
                 case "ZoneA":
                     shippingCost = 5.00;
                     break;
@@ -101,25 +100,29 @@ public class InteractiveOrderProcessor {
                     break;
             }
             System.out.printf("\nShipping Cost: $%.2f", shippingCost);
-            System.out.print(" (" + shippingZone +")\n");
-        }
-        else {
+            System.out.print(" (" + shippingZone + ")\n");
+        } else {
             System.out.printf("\nShipping Cost: $%.2f", shippingCost);
             System.out.print(" (FREESHIP Code Applied)\n");
         }
-        
+
         // Final Total:
         double finalOrderTotal = subtotal + shippingCost;
         System.out.printf("\nFinal Order Total: $%.2f%n", finalOrderTotal);
+
+        // Call Method to Display Part 2 of Laboratory Activity
+        stringEquality();
     }
 
+    // PART 2: Interactive String Equality
     public static void stringEquality(){
-        // Get Strings from User:
-        System.out.println("--- String Equality Demo ---");
-        System.out.println("Enter first string for comparison: ");
+        System.out.println("\n--- String Equality Demo ---");
+        System.out.print("Enter first string for comparison: ");
         String input1 = sc.next();
-        System.out.println("Enter first string for comparison: ");
+        System.out.print("Enter first string for comparison: ");
         String input2 = sc.next();
+
+        // Close Scanner:
         sc.close();
 
         // Print Strings:
@@ -127,6 +130,31 @@ public class InteractiveOrderProcessor {
         System.out.println("String 2: " + input2);
 
         // String Equality Demonstrations:
+        // Compare the two user-entered strings using ==.
+        boolean result = input1 == input2;
+        System.out.print("\nString 1 == String 2: " + result);
+        if (!result){
+            System.out.print(" (Compares references. Even if they contain the same value, this will still return false as they are stored in different objects.)");
+        }
 
+        // Compare the two user-entered strings using .equals().
+        boolean result2 = input1.equals(input2);
+        System.out.print("\nString1.equals(String2): " + result2);
+        if (result2){
+            System.out.print(" (Compares content/values. This returned true because String 1 and String 2 contain the same value.)");
+        }
+        else {
+            System.out.print(" (Compares content/values. This returned false because String 1 and String 2 do not contain the same value.)");
+        }
+
+        // Compare the two user-entered strings using .equalsIgnoreCase().
+        boolean result3 = input1.equalsIgnoreCase(input2);
+        System.out.print("\nString1.equalsIgnoreCase(String2): " + result3);
+        if (result3){
+            System.out.print(" (Compares content/values. This returned true because String 1 and String 2 contain the same value, regardless of capitalization.)");
+        }
+        else {
+            System.out.print(" (Compares content/values. This returned false because String 1 and String 2 do not contain the same value.)");
+        }
     }
 }
