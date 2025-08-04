@@ -1,10 +1,16 @@
 package org.example;
 
+import java.io.PrintStream;
 import  java.util.Scanner;
 
 public class InteractiveOrderProcessor {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        // VARIABLES
+        double discount;
+        double quantityDiscount;
+        double shippingCost = 0.00;
 
         System.out.println("Welcome to the Interactive Order Processor!");
         System.out.println("\n--- Enter Order Details ---");
@@ -29,7 +35,6 @@ public class InteractiveOrderProcessor {
         // Subtotal Calculation:
         double subtotal = unitPrice * quantity;
         System.out.printf("Initial Subtotal: $%.2f%n", subtotal);
-        double discount = 0.00;
 
         // Tier-Based Discount:
         if (customerTier.equalsIgnoreCase("Gold")){
@@ -48,10 +53,53 @@ public class InteractiveOrderProcessor {
 
         // Quantity Discount:
         if (quantity >= 5){
-            double quantityDiscount = subtotal * 0.05;
+            quantityDiscount = subtotal * 0.05;
             subtotal = subtotal - quantityDiscount;
             System.out.printf("After Quantity Discount (5%% for >=5 items): $%.2f%n", subtotal);
         }
+
+        // Promotional Code Application:
+        if (discountCode.equals("SAVE10") && subtotal > 75.00){
+            subtotal = subtotal - 10.00;
+            System.out.printf("After Promotional Code (SAVE10 for >$75): $%.2f%n", subtotal);
+        } else if (discountCode.equalsIgnoreCase("FREESHIP")) {
+            shippingCost = 0.00;
+        }
+
+        // Small Order Surcharge:
+        System.out.print("After Small Order Surcharge (if applicable): ");
+        double surcharge = (subtotal < 25.00) ? 3.00 : 0.00;
+        System.out.printf("$%.2f", (subtotal + surcharge));
+        if (surcharge == 0.00) System.out.print(" (No surcharge)\n");
+
+
+        // Shipping Cost Calculation:
+        if (!discountCode.equalsIgnoreCase("FREESHIP")){
+            switch (shippingZone){
+                case "ZoneA":
+                    shippingCost = 5.00;
+                    break;
+                case "ZoneB":
+                    shippingCost = 12.00;
+                    break;
+                case "ZoneC":
+                    shippingCost = 20.00;
+                    break;
+                default:
+                    shippingCost = 25.00;
+                    break;
+            }
+            System.out.printf("\nShipping Cost: $%.2f", shippingCost);
+            System.out.print(" (" + shippingZone +")\n");
+        }
+        else {
+            System.out.printf("\nShipping Cost: $%.2f", shippingCost);
+            System.out.print(" (FREESHIP Code Applied)\n");
+        }
+        
+        // Final Total:
+        double finalOrderTotal = subtotal + shippingCost;
+        System.out.printf("\nFinal Order Total: $%.2f%n", finalOrderTotal);
 
     }
 }
