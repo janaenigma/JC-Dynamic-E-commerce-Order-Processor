@@ -5,6 +5,7 @@ import  java.util.Scanner;
 
 public class InteractiveOrderProcessor {
     public static void main(String[] args) {
+        // Initialize Scanner:
         Scanner sc = new Scanner(System.in);
 
         // VARIABLES
@@ -12,10 +13,10 @@ public class InteractiveOrderProcessor {
         double quantityDiscount;
         double shippingCost = 0.00;
 
+        // Get Order Data from User:
         System.out.println("Welcome to the Interactive Order Processor!");
         System.out.println("\n--- Enter Order Details ---");
 
-        // Get Order Data from User:
         System.out.print("Enter unit price: ");
         double unitPrice = sc.nextDouble();
         System.out.print("Enter quantity: ");
@@ -29,10 +30,11 @@ public class InteractiveOrderProcessor {
         System.out.print("Enter discount code (SAVE10, FREESHIP, or \"\" for none): ");
         String discountCode = sc.next();
 
+        // Closing Scanner
         sc.close();
 
-        System.out.println("\n--- Calculation Steps ---");
         // Subtotal Calculation:
+        System.out.println("\n--- Calculation Steps ---");
         double subtotal = unitPrice * quantity;
         System.out.printf("Initial Subtotal: $%.2f%n", subtotal);
 
@@ -72,7 +74,6 @@ public class InteractiveOrderProcessor {
         System.out.printf("$%.2f", (subtotal + surcharge));
         if (surcharge == 0.00) System.out.print(" (No surcharge)\n");
 
-
         // Shipping Cost Calculation:
         if (!discountCode.equalsIgnoreCase("FREESHIP")){
             switch (shippingZone){
@@ -100,6 +101,5 @@ public class InteractiveOrderProcessor {
         // Final Total:
         double finalOrderTotal = subtotal + shippingCost;
         System.out.printf("\nFinal Order Total: $%.2f%n", finalOrderTotal);
-
     }
 }
