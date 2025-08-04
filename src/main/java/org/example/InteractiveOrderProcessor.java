@@ -4,10 +4,10 @@ import java.io.PrintStream;
 import  java.util.Scanner;
 
 public class InteractiveOrderProcessor {
-    public static void main(String[] args) {
-        // Initialize Scanner:
-        Scanner sc = new Scanner(System.in);
+    // Initialize Scanner:
+    static Scanner sc = new Scanner(System.in);
 
+    public static void main(String[] args) {
         // VARIABLES
         double discount;
         double quantityDiscount;
@@ -101,5 +101,22 @@ public class InteractiveOrderProcessor {
         // Final Total:
         double finalOrderTotal = subtotal + shippingCost;
         System.out.printf("\nFinal Order Total: $%.2f%n", finalOrderTotal);
+    }
+
+    public static void stringEquality(){
+        // Get Strings from User:
+        System.out.println("--- String Equality Demo ---");
+        System.out.println("Enter first string for comparison: ");
+        String input1 = sc.next();
+        System.out.println("Enter first string for comparison: ");
+        String input2 = sc.next();
+        sc.close();
+
+        // Print Strings:
+        System.out.println("\nString 1: " + input1);
+        System.out.println("String 2: " + input2);
+
+        // String Equality Demonstrations:
+
     }
 }
