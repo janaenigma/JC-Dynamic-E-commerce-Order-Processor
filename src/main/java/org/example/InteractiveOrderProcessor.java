@@ -30,8 +30,17 @@ public class InteractiveOrderProcessor {
         System.out.print("Enter discount code (SAVE10, FREESHIP, or \"\" for none): ");
         String discountCode = sc.next();
 
-        // Closing Scanner
+        // Closing Scanner:
         sc.close();
+
+        // Print Order Details:
+        System.out.println("\n--- Order Details ---");
+        System.out.printf("Unit Price: $%.2f%n", unitPrice);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Is Member: " + isCustomerAMember);
+        System.out.println("Customer Tier: " + customerTier);
+        System.out.println("Shipping Zone: " + shippingZone);
+        System.out.println("Discount Code: " + discountCode);
 
         // Subtotal Calculation:
         System.out.println("\n--- Calculation Steps ---");
@@ -71,7 +80,8 @@ public class InteractiveOrderProcessor {
         // Small Order Surcharge:
         System.out.print("After Small Order Surcharge (if applicable): ");
         double surcharge = (subtotal < 25.00) ? 3.00 : 0.00;
-        System.out.printf("$%.2f", (subtotal + surcharge));
+        subtotal = subtotal + surcharge;
+        System.out.printf("$%.2f", (subtotal));
         if (surcharge == 0.00) System.out.print(" (No surcharge)\n");
 
         // Shipping Cost Calculation:
